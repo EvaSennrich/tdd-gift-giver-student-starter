@@ -1,23 +1,43 @@
 const express = require("express");
-const app = express();
+//const app = express();
+const giftExchange = require("../models/gift-exchange");
 const router = express.Router();
 const { NotFoundError, BadRequestError } = require("../utils/errors");
 
-router.post("/pairs", async (req, res, next) => {
+router.post("/pairs", (req, res, next) => {
   // res.status(200).json({ names: [] });
   try {
-    res.status(200).json({ names: {} });
+    const newPairs = req.body.names;
+    console.log(newPairs);
+
+    if (!newPairs) {
+      return next(new BadRequestError());
+    }
+
+    const pairs = giftExchange.pairs(newPairs);
+    res.status(200).json(pairs);
   } catch (err) {
-    next(BadRequestError);
+    console.log(err);
+    next(err);
   }
 });
 
-router.post("/traditional", async (req, res, next) => {
+router.post("/traditional", (req, res, next) => {
   // res.status(200).json({ names: [] });
   try {
-    res.status(200).json({ names: {} });
+    const newTraditional = req.body.names;
+    console.log("------>>>>", newTraditional);
+
+    if (!newTraditional) {
+      return next(new BadRequestError());
+    }
+
+    const traditional = giftExchange.traditional(newTraditional);
+    res.status(200).json(traditional);
+    // res.send(traditional);
   } catch (err) {
-    next(BadRequestError);
+    console.log(err);
+    next(err);
   }
 });
 

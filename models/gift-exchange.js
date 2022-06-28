@@ -26,14 +26,13 @@ class GiftExchange {
   }
 
   static traditional(names) {
-    let newArr2 = [];
     //     Should implement an algorithm to randomly match each name to another name in the list in sequential order:
     // if (names.length % 2 != 0) {
     //   console.log("you must have even numbers");
     //   return new BadRequestError();
     // }
 
-    let newArr = [];
+    let newArr2 = [];
     while (names.length >= 2) {
       let rnd1 = Math.random() * names.length;
       let name1 = names.splice(rnd1, 1)[0];
@@ -41,9 +40,12 @@ class GiftExchange {
       let rnd2 = Math.random() * names.length;
       let name2 = names.splice(rnd2, 1)[0];
 
-      newArr.push([name1, name2]);
+      // newArr2.push([name1, name2]);
+      newArr2.push([name1 + " is giving a gift to " + name2]);
       console.log(name1 + " is giving a gift to " + name2);
     }
+    // return newArr2.push([name1 + " is giving a gift to " + name2]);
+    return newArr2;
   }
 }
 

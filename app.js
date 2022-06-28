@@ -8,7 +8,9 @@ const app = express();
 // const admin = express(); // the sub app
 
 app.use(morgan("tiny"));
-// app.use(express.json());
+// This line gets the json body
+app.use(express.json());
+// This line mounts the router to the Express application at the /gift-exchange endpoint
 app.use("/gift-exchange", giftRouter);
 
 app.get("/", (req, res) => {
@@ -22,7 +24,7 @@ app.use((req, res, next) => {
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
-  const message = error.message || "Something wen't wrong in the application";
+  const message = error.message; // || "Something wen't wrong in the application";
 
   return res.status(status).json({
     error: { message, status },
